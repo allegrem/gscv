@@ -14,6 +14,7 @@ define( [
         defaults : {
             radius : 10,
             background_color: {r: 0, g: 1, b: 0}, // FIXME default value is not enforced
+            name: 'Maël Nison', // FIXME default value is not enforced
         }
 
     } );
@@ -23,11 +24,13 @@ define( [
         initialize : function ( ) {
             this.model.on( 'change:radius', this.onRadiusChange, this );
             this.model.on( 'change:background_color', this.onBackgroundColorChange, this );
+            this.model.on( 'change:name', this.onNameChange, this );
         },
 
         render : function ( ) {
             this.onRadiusChange( );
             this.onBackgroundColorChange( );
+            this.onNameChange( );
         },
 
         onRadiusChange : function ( ) {
@@ -38,6 +41,10 @@ define( [
             var rgb = this.model.get( 'background_color');
             var colorStr = 'rgb('+ Math.round(rgb.r * 255) +','+ Math.round(rgb.g * 255) +','+ Math.round(rgb.b * 255) +')';
             this.$el.css( 'background-color', colorStr );
+        },
+
+        onNameChange : function ( ) {
+            this.$el.find('.name').text( this.model.get( 'name' ) );
         }
 
     } );
@@ -63,6 +70,11 @@ define( [
     appearance.createWidget( 'Background color', 'Color', {
         model : card,
         name  : 'background_color'
-    })
+    } );
+
+    appearance.createWidget( 'Name', 'Text', {
+        model : card,
+        name  : 'name'
+    } );
 
 } );
