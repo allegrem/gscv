@@ -15,6 +15,7 @@ define( [
             radius : 10,
             background_color: {r: 0, g: 1, b: 0}, // FIXME default value is not enforced
             name: 'Maël Nison', // FIXME default value is not enforced
+            job: 'Frontend Developer', // FIXME default value is not enforced
         }
 
     } );
@@ -25,12 +26,14 @@ define( [
             this.model.on( 'change:radius', this.onRadiusChange, this );
             this.model.on( 'change:background_color', this.onBackgroundColorChange, this );
             this.model.on( 'change:name', this.onNameChange, this );
+            this.model.on( 'change:job', this.onJobChange, this );
         },
 
         render : function ( ) {
             this.onRadiusChange( );
             this.onBackgroundColorChange( );
             this.onNameChange( );
+            this.onJobChange( );
         },
 
         onRadiusChange : function ( ) {
@@ -45,7 +48,11 @@ define( [
 
         onNameChange : function ( ) {
             this.$el.find('.name').text( this.model.get( 'name' ) );
-        }
+        },
+
+        onJobChange : function ( ) {
+            this.$el.find('.job').text( this.model.get( 'job' ) );
+        },
 
     } );
 
@@ -57,6 +64,21 @@ define( [
     view.render( );
 
     // --- --- --- --- --- --- --- --- ---
+
+    var content = editor.createWidget( 'Group', {
+        label : 'Card Content'
+    } );
+
+    content.createWidget( 'Name', 'Text', {
+        model : card,
+        name  : 'name'
+    } );
+
+    content.createWidget( 'Job', 'Text', {
+        model : card,
+        name  : 'job'
+    } );
+
 
     var appearance = editor.createWidget( 'Group', {
         label : 'Card Appearance'
@@ -70,11 +92,6 @@ define( [
     appearance.createWidget( 'Background color', 'Color', {
         model : card,
         name  : 'background_color'
-    } );
-
-    appearance.createWidget( 'Name', 'Text', {
-        model : card,
-        name  : 'name'
     } );
 
 } );
