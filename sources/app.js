@@ -16,6 +16,7 @@ define( [
             background_color: {r: 0, g: 1, b: 0}, // FIXME default value is not enforced
             name: 'Maël Nison', // FIXME default value is not enforced
             job: 'Frontend Developer', // FIXME default value is not enforced
+            font_size : 20, // TODO set min/max
         }
 
     } );
@@ -27,6 +28,7 @@ define( [
             this.model.on( 'change:background_color', this.onBackgroundColorChange, this );
             this.model.on( 'change:name', this.onNameChange, this );
             this.model.on( 'change:job', this.onJobChange, this );
+            this.model.on( 'change:font_size', this.onFontSizeChange, this );
         },
 
         render : function ( ) {
@@ -34,6 +36,7 @@ define( [
             this.onBackgroundColorChange( );
             this.onNameChange( );
             this.onJobChange( );
+            this.onFontSizeChange( );
         },
 
         onRadiusChange : function ( ) {
@@ -53,6 +56,10 @@ define( [
         onJobChange : function ( ) {
             this.$el.find('.job').text( this.model.get( 'job' ) );
         },
+
+        onFontSizeChange : function ( ) {
+            this.$el.css( 'font-size', this.model.get( 'font_size' ) + 'px' );
+        }
 
     } );
 
@@ -80,16 +87,26 @@ define( [
     } );
 
 
-    var appearance = editor.createWidget( 'Group', {
+    var textAppearance = editor.createWidget( 'Group', {
+        label : 'Text Appearance'
+    } );
+
+    textAppearance.createWidget( 'Font Size', 'NumberedSlider', {
+        model : card,
+        name  : 'font_size'
+    } );
+
+
+    var cardAppearance = editor.createWidget( 'Group', {
         label : 'Card Appearance'
     } );
 
-    appearance.createWidget( 'Border radius', 'NumberedSlider', {
+    cardAppearance.createWidget( 'Border radius', 'NumberedSlider', {
         model : card,
         name  : 'radius'
     } );
 
-    appearance.createWidget( 'Background color', 'Color', {
+    cardAppearance.createWidget( 'Background color', 'Color', {
         model : card,
         name  : 'background_color'
     } );
