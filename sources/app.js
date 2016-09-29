@@ -17,6 +17,7 @@ define( [
             name: 'Maël Nison', // FIXME default value is not enforced
             job: 'Frontend Developer', // FIXME default value is not enforced
             font_size : 20, // TODO set min/max
+            font_family: 'Open Sans',
         }
 
     } );
@@ -29,6 +30,7 @@ define( [
             this.model.on( 'change:name', this.onNameChange, this );
             this.model.on( 'change:job', this.onJobChange, this );
             this.model.on( 'change:font_size', this.onFontSizeChange, this );
+            this.model.on( 'change:font_family', this.onFontFamilyChange, this );
         },
 
         render : function ( ) {
@@ -37,6 +39,7 @@ define( [
             this.onNameChange( );
             this.onJobChange( );
             this.onFontSizeChange( );
+            this.onFontFamilyChange( );
         },
 
         onRadiusChange : function ( ) {
@@ -59,6 +62,10 @@ define( [
 
         onFontSizeChange : function ( ) {
             this.$el.css( 'font-size', this.model.get( 'font_size' ) + 'px' );
+        },
+
+        onFontFamilyChange : function ( ) {
+            this.$el.css( 'font-family', this.model.get('font_family') + ', sans-serif' );
         }
 
     } );
@@ -94,6 +101,21 @@ define( [
     textAppearance.createWidget( 'Font Size', 'NumberedSlider', {
         model : card,
         name  : 'font_size'
+    } );
+
+    textAppearance.createWidget( 'Font Family', 'Select', {
+        model : card,
+        name  : 'font_family',
+        options: {
+            'Black Ops One': 'Black Ops One',
+            'Bungee Shade': 'Bungee Shade',
+            'Creepster' : 'Creepster',
+            'Ewert' : 'Ewert',
+            'Monoton' : 'Monoton',
+            'Open Sans' : 'Open Sans',
+            'Shrikhand' : 'Shrikhand',
+            'Yatra One' : 'Yatra One',
+        },
     } );
 
 
